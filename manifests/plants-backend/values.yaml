@@ -1,11 +1,12 @@
-replicaCount: 1
+replicaCount: 2
 
 image:
-  repository: ghcr.io/yevgenio/gallery-backend
-  # Updated automatically by GitHub Actions on each push to dev
-  tag: "2b5c90d"
+  repository: ghcr.io/yevgenio/plants-backend
+  # Updated automatically by GitHub Actions on each push to main
+  tag: "2a994f5"
   pullPolicy: Always
 
+# Set enabled: true and fill credentials if the GHCR package is private.
 registry:
   enabled: false
   url: "ghcr.io"
@@ -17,7 +18,7 @@ service:
   port: 5000
 
 ingress:
-  host: staging.api.boukingolts.art
+  host: api.boukingolts.art
 
 resources:
   requests:
