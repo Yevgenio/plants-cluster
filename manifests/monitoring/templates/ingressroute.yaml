@@ -11,7 +11,7 @@ spec:
   tls:
     certResolver: letsencrypt
   routes:
-    - match: Host(`grafana.boukingolts.art`)
+    - match: Host(`grafana.boukingolts.dev`)
       kind: Rule
       services:
         - name: kube-prometheus-stack-grafana

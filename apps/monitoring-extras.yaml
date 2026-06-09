@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Yevgenio/boukingolts-cluster
+    repoURL: https://github.com/Yevgenio/plants-cluster
     targetRevision: HEAD
     path: manifests/monitoring
   destination:

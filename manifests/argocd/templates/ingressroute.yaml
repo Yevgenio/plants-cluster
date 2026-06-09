@@ -10,7 +10,7 @@ spec:
   tls:
     certResolver: letsencrypt
   routes:
-    - match: Host(`argocd.boukingolts.art`)
+    - match: Host(`argocd.boukingolts.dev`)
       kind: Rule
       services:
         - name: argocd-server

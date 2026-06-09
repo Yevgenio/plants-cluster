@@ -17,7 +17,7 @@ service:
   port: 5000
 
 ingress:
-  host: staging.api.boukingolts.art
+  host: staging.api.boukingolts.dev
 
 resources:
   requests:

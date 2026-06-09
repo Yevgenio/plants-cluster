@@ -18,7 +18,7 @@ service:
   port: 5000
 
 ingress:
-  host: api.boukingolts.art
+  host: api.boukingolts.dev
 
 resources:
   requests:
