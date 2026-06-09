@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: plants-backend
+  name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
   labels:
-    app: plants-backend
+    app: {{ .Release.Name }}
 spec:
   type: {{ .Values.service.type }}
   selector:
-    app: plants-backend
+    app: {{ .Release.Name }}
   ports:
     - name: http
       port: {{ .Values.service.port }}

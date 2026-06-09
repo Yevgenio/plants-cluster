@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: plants-backend
+  name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
   labels:
-    app: plants-backend
+    app: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: plants-backend
+      app: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: plants-backend
+        app: {{ .Release.Name }}
     spec:
       {{- if .Values.registry.enabled }}
       imagePullSecrets:
@@ -24,7 +24,7 @@ spec:
           image: busybox
           command: ['sh', '-c', 'until nslookup _mongodb._tcp.cluster0.ek0v84q.mongodb.net > /dev/null 2>&1; do echo waiting for mongo dns; sleep 5; done']
       containers:
-        - name: plants-backend
+        - name: {{ .Release.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
@@ -36,7 +36,7 @@ spec:
               value: "5000"
           envFrom:
             - secretRef:
-                name: plants-backend-secret
+                name: {{ .Release.Name }}-secret
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           readinessProbe:

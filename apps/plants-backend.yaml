@@ -8,13 +8,14 @@ spec:
   source:
     repoURL: https://github.com/Yevgenio/plants-cluster
     targetRevision: HEAD
-    path: manifests/plants-backend
+    path: manifests/backend
     helm:
+      releaseName: backend
       valueFiles:
         - values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: plants-backend
+    namespace: plants
   syncPolicy:
     automated:
       prune: true

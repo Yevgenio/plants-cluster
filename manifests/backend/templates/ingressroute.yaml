@@ -1,10 +1,10 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: plants-backend
+  name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
   labels:
-    app: plants-backend
+    app: {{ .Release.Name }}
 spec:
   entryPoints:
     - websecure
@@ -14,5 +14,5 @@ spec:
     - match: Host(`{{ .Values.ingress.host }}`)
       kind: Rule
       services:
-        - name: plants-backend
+        - name: {{ .Release.Name }}
           port: {{ .Values.service.port }}
