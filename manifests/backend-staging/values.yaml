@@ -19,6 +19,13 @@ service:
 ingress:
   host: staging.api.boukingolts.dev
 
+env:
+  BASE_URL: "https://staging.boukingolts.dev"
+  API_URL: "https://staging.api.boukingolts.dev"
+  AWS_ENDPOINT_URL: "https://axftwemw5l5c.compat.objectstorage.il-jerusalem-1.oraclecloud.com"
+  S3_BUCKET: "gallery"  # TODO: replace with a dedicated plants bucket
+  AWS_REGION: "il-jerusalem-1"
+
 resources:
   requests:
     cpu: 10m
