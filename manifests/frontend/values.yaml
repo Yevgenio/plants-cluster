@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/yevgenio/plants-frontend
   # Updated automatically by GitHub Actions on each push to main
-  tag: "14414bc"
+  tag: "1b3c996"
   pullPolicy: Always
 
 service:
