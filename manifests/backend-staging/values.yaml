@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/yevgenio/plants-backend
   # Updated automatically by GitHub Actions on each push to dev
-  tag: "e26e6a5"
+  tag: "074dd2e"
   pullPolicy: Always
 
 registry:
