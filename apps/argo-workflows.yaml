@@ -38,6 +38,13 @@ spec:
             name: argo-workflow
           rbac:
             create: true
+        workflowDefaults:
+          spec:
+            podGC:
+              strategy: OnWorkflowSuccess
+            ttlStrategy:
+              secondsAfterSuccess: 86400
+              secondsAfterFailure: 604800
         executor:
           resources:
             requests:
