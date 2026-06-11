@@ -206,6 +206,10 @@ spec:
             git config user.email "argo@boukingolts.dev"
             git config user.name "Argo Workflows"
             git add manifests/frontend-staging/values.yaml
+            if git diff --cached --quiet; then
+              echo "Staging already at {{ "{{" }}inputs.parameters.shortSha}}, nothing to do"
+              exit 0
+            fi
             git commit -m "deploy: plants-frontend {{ "{{" }}inputs.parameters.shortSha}} to staging"
             git push
             echo "Staging updated — ArgoCD will sync shortly"

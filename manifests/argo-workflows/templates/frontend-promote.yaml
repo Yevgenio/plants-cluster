@@ -34,6 +34,10 @@ spec:
             git config user.email "argo@boukingolts.dev"
             git config user.name "Argo Workflows"
             git add manifests/frontend/values.yaml
+            if git diff --cached --quiet; then
+              echo "Production already at $TAG, nothing to do"
+              exit 0
+            fi
             git commit -m "promote: plants-frontend $TAG to prod"
             git push
             echo "Production updated to $TAG — ArgoCD will sync shortly"
