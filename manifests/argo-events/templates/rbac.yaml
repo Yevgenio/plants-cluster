@@ -16,7 +16,7 @@ metadata:
   namespace: argo
 rules:
   - apiGroups: [argoproj.io]
-    resources: [workflows]
+    resources: [workflows, workflowtemplates]
     verbs: [create, get, list, watch, update, patch]
 
 ---
