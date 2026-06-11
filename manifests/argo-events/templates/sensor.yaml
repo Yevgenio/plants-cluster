@@ -1,14 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Sensor
 metadata:
-  name: plants-backend
+  name: plants-backend-ci
   namespace: argo
 spec:
   template:
     serviceAccountName: argo-events-workflow-trigger
 
   dependencies:
-    # Two named dependencies — one per branch — so triggers can condition on them independently.
     - name: push-dev
       eventSourceName: plants-github
       eventName: plants-backend
@@ -17,15 +16,6 @@ spec:
           - path: body.ref
             type: string
             value: ["refs/heads/dev"]
-
-    - name: push-main
-      eventSourceName: plants-github
-      eventName: plants-backend
-      filters:
-        data:
-          - path: body.ref
-            type: string
-            value: ["refs/heads/main"]
 
   triggers:
     - template:
@@ -55,7 +45,7 @@ spec:
           parameters:
             - src:
                 dependencyName: push-dev
-                dataKey: body.after          # full commit SHA from GitHub push payload
+                dataKey: body.after
               dest: spec.arguments.parameters.0.value
             - src:
                 dependencyName: push-dev
@@ -63,7 +53,27 @@ spec:
               dest: spec.arguments.parameters.1.value
       retryStrategy:
         steps: 3
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: plants-backend-promote
+  namespace: argo
+spec:
+  template:
+    serviceAccountName: argo-events-workflow-trigger
 
+  dependencies:
+    - name: push-main
+      eventSourceName: plants-github
+      eventName: plants-backend
+      filters:
+        data:
+          - path: body.ref
+            type: string
+            value: ["refs/heads/main"]
+
+  triggers:
     - template:
         name: backend-promote
         conditions: "push-main"
