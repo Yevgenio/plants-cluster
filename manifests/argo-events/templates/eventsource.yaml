@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: EventSource
+metadata:
+  name: plants-github
+  namespace: argo
+spec:
+  # Creates a Service (plants-github-eventsource-svc:12000) that the
+  # IngressRoute below routes to. GitHub sends push webhooks here.
+  service:
+    ports:
+      - port: 12000
+        targetPort: 12000
+
+  webhook:
+    plants-backend:
+      port: "12000"
+      endpoint: /plants-backend
+      method: POST
+      # HMAC validation — GitHub signs every webhook payload with this secret.
+      # Rejects forged or replayed requests before the Sensor sees them.
+      webhookSecret:
+        name: argo-secrets
+        key: WEBHOOK_SECRET

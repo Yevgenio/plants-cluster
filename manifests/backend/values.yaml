@@ -2,16 +2,13 @@ replicaCount: 2
 
 image:
   repository: ghcr.io/yevgenio/plants-backend
-  # Updated automatically by GitHub Actions on each push to main
+  # Updated automatically by Argo Workflows on each push to main
   tag: "24ebecf"
   pullPolicy: Always
 
-# Set enabled: true and fill credentials if the GHCR package is private.
 registry:
   enabled: false
   url: "ghcr.io"
-  username: ""
-  token: ""
 
 service:
   type: ClusterIP

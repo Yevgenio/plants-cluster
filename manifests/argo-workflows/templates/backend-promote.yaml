@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: backend-promote
+  namespace: argo
+  labels:
+    app: plants-backend
+spec:
+  # Build-once-promote: reads the tag already deployed to staging and writes
+  # it to production — no rebuild. Prod runs the exact binary that passed staging.
+  entrypoint: promote
+  serviceAccountName: argo-workflow
+
+  templates:
+    - name: promote
+      container:
+        image: alpine/git:latest
+        command: [sh, -c]
+        args:
+          - |
+            echo "=== Reading staging tag ==="
+            git clone \
+              https://x-access-token:${GITOPS_TOKEN}@github.com/Yevgenio/plants-cluster.git \
+              /cluster
+            cd /cluster
+
+            TAG=$(grep -E '^\s+tag:' manifests/backend-staging/values.yaml \
+                  | head -1 | sed 's/.*tag: "\(.*\)"/\1/')
+            [ -z "$TAG" ] && echo "ERROR: could not parse staging tag" && exit 1
+
+            echo "=== Promoting $TAG to production ==="
+            sed -i "s/tag: \"[^\"]*\"/tag: \"$TAG\"/" manifests/backend/values.yaml
+            git config user.email "argo@boukingolts.dev"
+            git config user.name "Argo Workflows"
+            git add manifests/backend/values.yaml
+            git commit -m "promote: plants-backend $TAG to prod"
+            git push
+            echo "Production updated to $TAG — ArgoCD will sync shortly"
+        env:
+          - name: GITOPS_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: argo-secrets
+                key: GITOPS_TOKEN
