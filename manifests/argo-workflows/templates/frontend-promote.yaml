@@ -18,6 +18,7 @@ spec:
         command: [sh, -c]
         args:
           - |
+            set -e
             echo "=== Reading staging tag ==="
             git clone \
               https://x-access-token:${GITOPS_TOKEN}@github.com/Yevgenio/plants-cluster.git \

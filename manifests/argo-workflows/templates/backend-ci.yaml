@@ -199,6 +199,7 @@ spec:
         command: [sh, -c]
         args:
           - |
+            set -e
             echo "=== Deploying {{ "{{" }}inputs.parameters.shortSha}} to staging ==="
             git clone \
               https://x-access-token:${GITOPS_TOKEN}@github.com/Yevgenio/plants-cluster.git \
