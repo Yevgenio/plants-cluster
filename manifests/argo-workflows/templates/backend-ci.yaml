@@ -180,12 +180,12 @@ spec:
           - registry.boukingolts.dev/plants-backend:{{ "{{" }}inputs.parameters.shortSha}}
         env:
           - name: DOCKER_CONFIG
-            value: /root/.docker
+            value: /tmp/docker
         volumeMounts:
           - name: workspace
             mountPath: /workspace
           - name: registry-creds
-            mountPath: /root/.docker
+            mountPath: /tmp/docker
             readOnly: true
 
     # Updates the cluster repo tag and pushes. ArgoCD detects the change and syncs —
