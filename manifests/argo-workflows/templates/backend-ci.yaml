@@ -174,13 +174,10 @@ spec:
           - name: shortSha
       container:
         image: gcr.io/go-containerregistry/crane:latest
-        command: [sh, -c]
         args:
-          - |
-            echo "=== Pushing registry.boukingolts.dev/plants-backend:{{ "{{" }}inputs.parameters.shortSha}} ==="
-            crane push /workspace/image.tar \
-              registry.boukingolts.dev/plants-backend:{{ "{{" }}inputs.parameters.shortSha}}
-            echo "Push complete"
+          - push
+          - /workspace/image.tar
+          - registry.boukingolts.dev/plants-backend:{{ "{{" }}inputs.parameters.shortSha}}
         env:
           - name: DOCKER_CONFIG
             value: /root/.docker
