@@ -110,12 +110,6 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
 
           readinessProbe:
-            httpGet:
-              path: /v2/
-              port: 5000
-              # /v2/ returns 401 when auth is enabled — that still means the
-              # registry is up and healthy. 401 is a valid ready state.
-              # We use a TCP probe instead to avoid false negatives.
             tcpSocket:
               port: 5000
             initialDelaySeconds: 5
