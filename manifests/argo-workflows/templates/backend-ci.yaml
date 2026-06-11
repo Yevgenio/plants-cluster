@@ -146,7 +146,7 @@ spec:
             memory: 1Gi
           limits:
             cpu: 1500m
-            memory: 2Gi
+            memory: 3Gi
 
     # Two Trivy passes: HIGH+CRITICAL informational, then CRITICAL-only gate.
     # Splitting avoids blocking on HIGH CVEs that have no upstream fix yet.
