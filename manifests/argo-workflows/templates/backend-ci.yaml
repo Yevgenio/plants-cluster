@@ -45,7 +45,7 @@ spec:
             arguments:
               parameters:
                 - name: commitSha
-                  value: "{{workflow.parameters.commitSha}}"
+                  value: "{{ "{{" }}workflow.parameters.commitSha}}"
         - - name: audit
             template: audit
         - - name: build
@@ -53,7 +53,7 @@ spec:
             arguments:
               parameters:
                 - name: shortSha
-                  value: "{{workflow.parameters.shortSha}}"
+                  value: "{{ "{{" }}workflow.parameters.shortSha}}"
         - - name: scan
             template: scan
         - - name: push
@@ -61,13 +61,13 @@ spec:
             arguments:
               parameters:
                 - name: shortSha
-                  value: "{{workflow.parameters.shortSha}}"
+                  value: "{{ "{{" }}workflow.parameters.shortSha}}"
         - - name: deploy-staging
             template: deploy-staging
             arguments:
               parameters:
                 - name: shortSha
-                  value: "{{workflow.parameters.shortSha}}"
+                  value: "{{ "{{" }}workflow.parameters.shortSha}}"
 
     - name: clone
       inputs:
@@ -78,10 +78,10 @@ spec:
         command: [sh, -c]
         args:
           - |
-            echo "=== Cloning plants-backend at {{inputs.parameters.commitSha}} ==="
+            echo "=== Cloning plants-backend at {{ "{{" }}inputs.parameters.commitSha}} ==="
             git clone https://github.com/Yevgenio/plants-backend.git /workspace/src
             cd /workspace/src
-            git checkout {{inputs.parameters.commitSha}}
+            git checkout {{ "{{" }}inputs.parameters.commitSha}}
             echo "Clone complete"
         volumeMounts:
           - name: workspace
@@ -126,7 +126,7 @@ spec:
         image: gcr.io/kaniko-project/executor:latest
         args:
           - --context=dir:///workspace/src
-          - --destination=registry.boukingolts.dev/plants-backend:{{inputs.parameters.shortSha}}
+          - --destination=registry.boukingolts.dev/plants-backend:{{ "{{" }}inputs.parameters.shortSha}}
           - --no-push
           - --tar-path=/workspace/image.tar
           - --cache=true
@@ -177,9 +177,9 @@ spec:
         command: [sh, -c]
         args:
           - |
-            echo "=== Pushing registry.boukingolts.dev/plants-backend:{{inputs.parameters.shortSha}} ==="
+            echo "=== Pushing registry.boukingolts.dev/plants-backend:{{ "{{" }}inputs.parameters.shortSha}} ==="
             crane push /workspace/image.tar \
-              registry.boukingolts.dev/plants-backend:{{inputs.parameters.shortSha}}
+              registry.boukingolts.dev/plants-backend:{{ "{{" }}inputs.parameters.shortSha}}
             echo "Push complete"
         env:
           - name: DOCKER_CONFIG
@@ -202,17 +202,17 @@ spec:
         command: [sh, -c]
         args:
           - |
-            echo "=== Deploying {{inputs.parameters.shortSha}} to staging ==="
+            echo "=== Deploying {{ "{{" }}inputs.parameters.shortSha}} to staging ==="
             git clone \
               https://x-access-token:${GITOPS_TOKEN}@github.com/Yevgenio/plants-cluster.git \
               /cluster
             cd /cluster
-            sed -i 's/tag: "[^"]*"/tag: "{{inputs.parameters.shortSha}}"/' \
+            sed -i 's/tag: "[^"]*"/tag: "{{ "{{" }}inputs.parameters.shortSha}}"/' \
               manifests/backend-staging/values.yaml
             git config user.email "argo@boukingolts.dev"
             git config user.name "Argo Workflows"
             git add manifests/backend-staging/values.yaml
-            git commit -m "deploy: plants-backend {{inputs.parameters.shortSha}} to staging"
+            git commit -m "deploy: plants-backend {{ "{{" }}inputs.parameters.shortSha}} to staging"
             git push
             echo "Staging updated — ArgoCD will sync shortly"
         env:
