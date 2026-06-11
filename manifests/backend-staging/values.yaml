@@ -1,14 +1,14 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/yevgenio/plants-backend
+  repository: registry.boukingolts.dev/plants-backend
   # Updated automatically by Argo Workflows on each push to dev
   tag: "df1db7f"
   pullPolicy: Always
 
 registry:
-  enabled: false
-  url: "ghcr.io"
+  enabled: true
+  url: "registry.boukingolts.dev"
 
 service:
   type: ClusterIP
