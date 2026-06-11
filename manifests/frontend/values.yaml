@@ -1,10 +1,14 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/yevgenio/plants-frontend
-  # Updated automatically by GitHub Actions on each push to main
+  repository: registry.boukingolts.dev/plants-frontend
+  # Updated automatically by Argo Workflows on each push to main
   tag: "93631a1"
   pullPolicy: Always
+
+registry:
+  enabled: true
+  url: "registry.boukingolts.dev"
 
 service:
   type: ClusterIP

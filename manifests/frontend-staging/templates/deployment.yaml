@@ -15,6 +15,10 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
+      {{- if .Values.registry.enabled }}
+      imagePullSecrets:
+        - name: registry-credentials
+      {{- end }}
       containers:
         - name: {{ .Release.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
