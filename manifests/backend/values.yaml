@@ -3,7 +3,7 @@ replicaCount: 2
 image:
   repository: registry.boukingolts.dev/plants-backend
   # Updated automatically by Argo Workflows on each push to main
-  tag: "df1db7f"
+  tag: "23e3fb7"
   pullPolicy: Always
 
 registry:
