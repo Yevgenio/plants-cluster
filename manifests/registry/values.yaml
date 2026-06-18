@@ -16,9 +16,9 @@ ingress:
 # If you want a dedicated bucket, create one in OCI and change s3Bucket here.
 storage:
   s3Region: "il-jerusalem-1"
-  s3RegionEndpoint: "https://axftwemw5l5c.compat.objectstorage.il-jerusalem-1.oraclecloud.com"
-  s3Bucket: "gallery"
-  s3RootDirectory: "/registry"
+  s3RegionEndpoint: "https://axmemlyrscvh.compat.objectstorage.il-jerusalem-1.oraclecloud.com"
+  s3Bucket: "registry"
+  s3RootDirectory: ""
 
 resources:
   requests:

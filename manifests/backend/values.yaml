@@ -20,9 +20,9 @@ ingress:
 env:
   BASE_URL: "https://boukingolts.dev"
   API_URL: "https://api.boukingolts.dev"
-  AWS_ENDPOINT_URL: "https://axftwemw5l5c.compat.objectstorage.il-jerusalem-1.oraclecloud.com"
-  S3_BUCKET: "gallery"  # TODO: replace with a dedicated plants bucket
-  AWS_REGION: "il-jerusalem-1"
+  S3_ENDPOINT_URL: "https://axmemlyrscvh.compat.objectstorage.il-jerusalem-1.oraclecloud.com"
+  S3_BUCKET: "images"
+  S3_REGION: "il-jerusalem-1"
 
 resources:
   requests:

@@ -85,6 +85,13 @@ spec:
         volumeMounts:
           - name: workspace
             mountPath: /workspace
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            cpu: 1000m
+            memory: 2Gi
 
     - name: audit
       container:
@@ -131,7 +138,7 @@ spec:
           - --cache=true
           - --cache-repo=registry.boukingolts.dev/plants-frontend-cache
           - --build-arg=NEXT_PUBLIC_API_URL=https://api.boukingolts.dev
-          - --build-arg=NEXT_PUBLIC_IMAGE_URL=https://axftwemw5l5c.compat.objectstorage.il-jerusalem-1.oraclecloud.com/gallery
+          - --build-arg=NEXT_PUBLIC_IMAGE_URL=https://objectstorage.il-jerusalem-1.oraclecloud.com/n/axmemlyrscvh/b/images/o
         env:
           - name: DOCKER_CONFIG
             value: /kaniko/.docker
@@ -144,10 +151,10 @@ spec:
         resources:
           requests:
             cpu: 500m
-            memory: 1Gi
+            memory: 2Gi
           limits:
             cpu: 3000m
-            memory: 4Gi
+            memory: 7Gi
 
     - name: scan
       container:
