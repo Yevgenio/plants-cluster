@@ -11,6 +11,9 @@ spec:
   entrypoint: promote
   serviceAccountName: argo-workflow
 
+  ttlStrategy:
+    secondsAfterCompletion: 86400
+
   templates:
     - name: promote
       container:
